@@ -8,14 +8,14 @@ struct Command {
 }
 
 fn main() {
-    let (mut stacks, mut commands) = get_input("input.txt");
+    let (mut stacks, commands) = get_input("input.txt");
     move_crates(&mut stacks, commands);
     for stack in stacks {
         println!("{:?}", stack);
     }
 }
 
-fn move_crates(stacks: &mut Vec<VecDeque<char>>, commands: Vec<Command>) {
+fn move_crates(stacks: &mut [VecDeque<char>], commands: Vec<Command>) {
     for command in commands {
         let mut intermediate_stack = VecDeque::new();
         for _i in 0..command.amount {
@@ -44,7 +44,6 @@ fn get_input(path: &str) -> (Vec<VecDeque<char>>, Vec<Command>) {
 
     let commands: Vec<Command> = input
         .map(|line| {
-            //println!("{}", line);
             let split: Vec<&str> = line.split(' ').collect();
             Command {
                 amount: split[1].parse::<usize>().unwrap(),
